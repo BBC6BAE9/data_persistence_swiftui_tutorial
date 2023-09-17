@@ -11,7 +11,7 @@ import SwiftData
 struct TagListView: View {
     
     @Environment(\.modelContext) private var context
-    @Query(sort: \.name, order: .forward) var allTags:[Tag]
+    @Query(sort: \Tag.name, order: .forward) var allTags:[Tag]
     @State var tagText = ""
     
     var body: some View {
@@ -24,6 +24,7 @@ struct TagListView: View {
                     Button("save") {
                         createTag()
                     }
+                    .disabled(tagText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
             }
             

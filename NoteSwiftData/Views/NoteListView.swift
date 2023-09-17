@@ -11,8 +11,8 @@ import SwiftData
 struct NoteListView: View {
     
     @Environment(\.modelContext) private var context
-    @Query(sort: \.createAt, order: .reverse) var allNotes:[Note]
-    @Query(sort: \.name, order: .forward) var allTags:[Tag]
+    @Query(sort: \Note.createAt, order: .reverse) var allNotes:[Note]
+    @Query(sort: \Tag.name, order: .forward) var allTags:[Tag]
 
     @State var noteText = ""
     
@@ -47,6 +47,7 @@ struct NoteListView: View {
                     Button("save") {
                         createNote()
                     }
+                    .disabled(noteText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
             }
             
