@@ -11,6 +11,8 @@ import SwiftData
 @main
 struct NoteSwiftDataApp: App {
     
+    let modelContainer: ModelContainer
+    
     @State var noteSearchText:String = ""
     @State var noteSortBy = NoteSortBy.content
     @State var noteOrderBy = OrderBy.descending
@@ -19,17 +21,25 @@ struct NoteSwiftDataApp: App {
     @State var tagSearchText:String = ""
     @State var tagOrderBy = OrderBy.ascending
     
+    init() {
+        do {
+            modelContainer = try ModelContainer(for: [
+                Note.self,
+                Tag.self,
+            ])
+        } catch {
+            fatalError("Could not initialize ModelContainer")
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             TabView{
                 noteListView
                 tagListView
             }
-            .modelContainer(for:[
-                Note.self,
-                Tag.self,
-            ])
         }
+        .modelContainer(modelContainer)
     }
     
     var noteListView:some View{
