@@ -10,7 +10,8 @@ import SwiftData
 
 @Model
 class Note{
-    @Attribute(.unique) var id: String?
+    
+    var id: String?
     var content: String = ""
     var createAt: Date = Date()
     
